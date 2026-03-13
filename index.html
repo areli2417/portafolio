@@ -6,35 +6,34 @@
   <title>Mi Portafolio</title>
   <style>
     :root {
-      --bg: #0f172a;
-      --card: #111827;
-      --soft: #1f2937;
+      --bg: #0b1120;
+      --bg-soft: #111827;
+      --card: rgba(17, 24, 39, 0.82);
+      --line: rgba(148, 163, 184, 0.16);
       --text: #e5e7eb;
       --muted: #94a3b8;
-      --accent: #38bdf8;
-      --accent-2: #22c55e;
-      --max: 1100px;
+      --accent: #60a5fa;
+      --accent-2: #34d399;
+      --max: 1120px;
+      --shadow: 0 20px 50px rgba(0, 0, 0, 0.28);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
+    html { scroll-behavior: smooth; }
+
     body {
       font-family: Arial, Helvetica, sans-serif;
-      background: linear-gradient(180deg, #020617, #0f172a 30%, #111827 100%);
       color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(96, 165, 250, 0.14), transparent 28%),
+        radial-gradient(circle at top right, rgba(52, 211, 153, 0.10), transparent 20%),
+        linear-gradient(180deg, #020617, #0b1120 34%, #111827 100%);
       line-height: 1.6;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    img {
-      max-width: 100%;
-      display: block;
-      border-radius: 14px;
-    }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; width: 100%; }
 
     .container {
       width: min(92%, var(--max));
@@ -44,36 +43,40 @@
     header {
       position: sticky;
       top: 0;
-      background: rgba(2, 6, 23, 0.8);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(148, 163, 184, 0.15);
       z-index: 20;
+      backdrop-filter: blur(12px);
+      background: rgba(2, 6, 23, 0.72);
+      border-bottom: 1px solid var(--line);
     }
 
     .nav {
+      min-height: 74px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      padding: 18px 0;
+      justify-content: space-between;
+      gap: 20px;
     }
 
     .logo {
-      font-weight: 700;
-      letter-spacing: 0.5px;
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: 0.3px;
     }
+
+    .logo span { color: var(--accent); }
 
     .menu {
       display: flex;
-      gap: 18px;
       list-style: none;
+      gap: 18px;
       color: var(--muted);
       font-size: 0.95rem;
     }
 
-    .menu a:hover { color: var(--accent); }
+    .menu a:hover { color: var(--text); }
 
     .hero {
-      padding: 84px 0 52px;
+      padding: 82px 0 52px;
       display: grid;
       grid-template-columns: 1.2fr 0.8fr;
       gap: 28px;
@@ -81,27 +84,32 @@
     }
 
     .tag {
-      display: inline-block;
-      background: rgba(56, 189, 248, 0.15);
-      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
       padding: 8px 14px;
       border-radius: 999px;
-      font-size: 0.9rem;
+      background: rgba(96, 165, 250, 0.12);
+      color: #bfdbfe;
+      border: 1px solid rgba(96, 165, 250, 0.16);
       margin-bottom: 18px;
+      font-size: 0.92rem;
     }
 
     h1 {
-      font-size: clamp(2.2rem, 5vw, 4rem);
-      line-height: 1.1;
+      font-size: clamp(2.4rem, 5vw, 4.4rem);
+      line-height: 1.05;
       margin-bottom: 18px;
     }
 
     .hero p {
       color: var(--muted);
+      max-width: 640px;
       margin-bottom: 24px;
-      font-size: 1.05rem;
-      max-width: 620px;
+      font-size: 1.04rem;
     }
+
+    .highlight { color: var(--accent); }
 
     .buttons {
       display: flex;
@@ -112,85 +120,130 @@
     .btn {
       display: inline-block;
       padding: 12px 18px;
-      border-radius: 12px;
+      border-radius: 14px;
       font-weight: 700;
-      transition: 0.2s ease;
       border: 1px solid transparent;
+      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
     }
+
+    .btn:hover { transform: translateY(-2px); }
 
     .btn-primary {
-      background: var(--accent);
-      color: #082f49;
+      background: linear-gradient(135deg, var(--accent), #38bdf8);
+      color: #08111f;
     }
-
-    .btn-primary:hover { transform: translateY(-2px); }
 
     .btn-secondary {
-      border-color: rgba(148, 163, 184, 0.3);
+      border-color: rgba(148, 163, 184, 0.22);
+      background: rgba(255, 255, 255, 0.03);
       color: var(--text);
-      background: rgba(255,255,255,0.03);
     }
 
-    .hero-card {
-      background: rgba(17, 24, 39, 0.85);
-      border: 1px solid rgba(148, 163, 184, 0.12);
-      border-radius: 22px;
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-side {
       padding: 24px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
     }
 
-    .hero-card h3 {
-      margin-bottom: 14px;
-      color: var(--accent);
-    }
-
-    .hero-card ul {
-      list-style: none;
+    .profile {
       display: grid;
-      gap: 12px;
-      color: var(--muted);
+      gap: 18px;
     }
 
-    section {
-      padding: 58px 0;
+    .avatar {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: linear-gradient(135deg, rgba(96, 165, 250, 0.18), rgba(52, 211, 153, 0.15));
+      display: grid;
+      place-items: center;
+      color: #dbeafe;
+      font-weight: 700;
+      font-size: 1.15rem;
     }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .mini-card {
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--line);
+    }
+
+    .mini-card strong {
+      display: block;
+      font-size: 1.1rem;
+      margin-bottom: 4px;
+      color: white;
+    }
+
+    .mini-card span {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    section { padding: 56px 0; }
 
     .section-title {
-      font-size: 1.8rem;
-      margin-bottom: 12px;
+      font-size: 1.9rem;
+      margin-bottom: 10px;
     }
 
     .section-text {
       color: var(--muted);
-      margin-bottom: 28px;
-      max-width: 750px;
+      max-width: 760px;
+      margin-bottom: 26px;
     }
 
     .about {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 24px;
+      gap: 22px;
     }
 
     .card {
-      background: rgba(17, 24, 39, 0.85);
-      border: 1px solid rgba(148, 163, 184, 0.12);
-      border-radius: 20px;
       padding: 24px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h3 {
+      margin-bottom: 12px;
+      font-size: 1.1rem;
+    }
+
+    .card p,
+    .card li {
+      color: var(--muted);
     }
 
     .skills {
       display: flex;
-      flex-wrap: wrap;
       gap: 12px;
-      margin-top: 12px;
+      flex-wrap: wrap;
+      margin-top: 10px;
     }
 
     .skill {
-      background: rgba(56, 189, 248, 0.12);
-      color: #bae6fd;
       padding: 10px 14px;
       border-radius: 999px;
+      background: rgba(96, 165, 250, 0.10);
+      border: 1px solid rgba(96, 165, 250, 0.15);
+      color: #dbeafe;
       font-size: 0.92rem;
     }
 
@@ -202,27 +255,53 @@
 
     .project-card {
       overflow: hidden;
+      padding: 0;
     }
 
-    .project-image {
+    .project-cover {
       aspect-ratio: 16 / 10;
-      background: linear-gradient(135deg, #0ea5e9, #22c55e);
-      border-radius: 14px;
-      margin-bottom: 18px;
+      overflow: hidden;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(135deg, rgba(96, 165, 250, 0.25), rgba(52, 211, 153, 0.18));
       display: grid;
       place-items: center;
-      font-weight: 700;
       color: white;
+      font-weight: 700;
     }
 
-    .project-card h3 {
+    .project-cover img {
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .project-body {
+      padding: 20px;
+    }
+
+    .project-body h3 {
       margin-bottom: 8px;
     }
 
-    .project-card p {
+    .project-body p {
       color: var(--muted);
-      font-size: 0.96rem;
       margin-bottom: 14px;
+      font-size: 0.96rem;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .project-tags span {
+      font-size: 0.82rem;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.04);
+      color: #cbd5e1;
+      border: 1px solid var(--line);
     }
 
     .project-links {
@@ -243,32 +322,47 @@
     .contact-box {
       max-width: 760px;
       margin: 0 auto;
+      padding: 30px;
+    }
+
+    .socials {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .socials a {
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.03);
+      color: var(--text);
     }
 
     footer {
-      padding: 28px 0 48px;
-      color: var(--muted);
+      padding: 26px 0 46px;
       text-align: center;
-      font-size: 0.95rem;
+      color: var(--muted);
+      font-size: 0.94rem;
     }
 
-    @media (max-width: 900px) {
+    @media (max-width: 920px) {
       .hero,
       .about,
       .projects {
         grid-template-columns: 1fr;
       }
 
-      .menu {
-        display: none;
-      }
+      .menu { display: none; }
     }
   </style>
 </head>
 <body>
   <header>
     <div class="container nav">
-      <a href="#inicio" class="logo">TuNombre.dev</a>
+      <a href="#inicio" class="logo">Tu<span>Portafolio</span></a>
       <ul class="menu">
         <li><a href="#sobre-mi">Sobre mí</a></li>
         <li><a href="#proyectos">Proyectos</a></li>
@@ -281,10 +375,10 @@
   <main>
     <section class="container hero" id="inicio">
       <div>
-        <span class="tag">Portafolio profesional</span>
-        <h1>Hola, soy Tu Nombre y construyo proyectos creativos y funcionales.</h1>
+        <span class="tag">Portafolio profesional · GitHub Pages</span>
+        <h1>Hola, soy <span class="highlight">Tu Nombre</span> y convierto ideas en proyectos visuales, ordenados y funcionales.</h1>
         <p>
-          Aquí puedes ver una selección de mis trabajos, las herramientas que utilizo y la forma en que convierto ideas en resultados visuales, digitales y bien estructurados.
+          Este espacio reúne una selección de mis trabajos, mis herramientas principales y la forma en que desarrollo proyectos con una presentación clara, moderna y profesional.
         </p>
         <div class="buttons">
           <a href="#proyectos" class="btn btn-primary">Ver proyectos</a>
@@ -292,39 +386,51 @@
         </div>
       </div>
 
-      <div class="hero-card">
-        <h3>Lo que encontrarás aquí</h3>
-        <ul>
-          <li>✔ Proyectos destacados con descripción</li>
-          <li>✔ Tecnologías y herramientas que manejo</li>
-          <li>✔ Información para contacto y colaboración</li>
-          <li>✔ Un sitio listo para publicar en GitHub Pages</li>
-        </ul>
-      </div>
+      <aside class="panel hero-side">
+        <div class="profile">
+          <div class="avatar">
+            Aquí puedes poner tu foto<br>o una imagen de perfil
+          </div>
+          <div class="mini-grid">
+            <div class="mini-card">
+              <strong>3+</strong>
+              <span>Proyectos destacados</span>
+            </div>
+            <div class="mini-card">
+              <strong>100%</strong>
+              <span>Diseño adaptable</span>
+            </div>
+          </div>
+        </div>
+      </aside>
     </section>
 
     <section class="container" id="sobre-mi">
       <h2 class="section-title">Sobre mí</h2>
       <p class="section-text">
-        Soy una persona apasionada por crear soluciones visuales y digitales. Me gusta desarrollar proyectos que mezclen diseño, organización, funcionalidad y una buena experiencia para el usuario.
+        Aquí puedes escribir una presentación breve sobre ti: quién eres, qué haces, en qué te especializas y qué valor aportas en tus proyectos.
       </p>
 
       <div class="about">
         <div class="card">
-          <h3>Perfil</h3>
+          <h3>Mi perfil</h3>
           <p>
-            Puedes reemplazar este texto con tu presentación personal: quién eres, qué haces, qué tipo de trabajos realizas y qué te diferencia de otras personas.
+            Reemplaza este texto con una descripción más personal. Por ejemplo: soy estudiante, diseñadora, desarrolladora o creadora de proyectos digitales. Me interesa construir experiencias limpias, bien pensadas y agradables para quien las usa.
           </p>
         </div>
+
         <div class="card" id="habilidades">
           <h3>Habilidades</h3>
+          <p>Estas etiquetas se pueden cambiar según tus conocimientos reales.</p>
           <div class="skills">
             <span class="skill">HTML</span>
             <span class="skill">CSS</span>
             <span class="skill">JavaScript</span>
             <span class="skill">GitHub</span>
             <span class="skill">Diseño UI</span>
-            <span class="skill">Responsive Design</span>
+            <span class="skill">Responsive</span>
+            <span class="skill">Canva</span>
+            <span class="skill">Figma</span>
           </div>
         </div>
       </div>
@@ -333,51 +439,85 @@
     <section class="container" id="proyectos">
       <h2 class="section-title">Proyectos</h2>
       <p class="section-text">
-        Esta sección muestra algunos de mis trabajos más representativos. Puedes agregar capturas, enlaces al repositorio y demos en vivo.
+        Aquí van tus mejores trabajos. Puedes poner una imagen real del proyecto, una descripción corta, herramientas usadas y enlaces a demo o repositorio.
       </p>
 
       <div class="projects">
         <article class="card project-card">
-          <div class="project-image">Proyecto 1</div>
-          <h3>Sitio web de ejemplo</h3>
-          <p>Diseño y desarrollo de una página moderna enfocada en presentación profesional y experiencia de usuario.</p>
-          <div class="project-links">
-            <a href="#">Demo</a>
-            <a href="#">GitHub</a>
+          <div class="project-cover">
+            <!-- Reemplaza este bloque por una imagen real -->
+            <!-- Ejemplo: <img src="img/proyecto1.jpg" alt="Vista del proyecto 1"> -->
+            Proyecto 1
+          </div>
+          <div class="project-body">
+            <h3>Sitio web informativo</h3>
+            <p>Proyecto enfocado en una presentación clara, navegación simple y diseño adaptable para computadora y celular.</p>
+            <div class="project-tags">
+              <span>HTML</span>
+              <span>CSS</span>
+              <span>Responsive</span>
+            </div>
+            <div class="project-links">
+              <a href="#">Demo</a>
+              <a href="#">GitHub</a>
+            </div>
           </div>
         </article>
 
         <article class="card project-card">
-          <div class="project-image">Proyecto 2</div>
-          <h3>Landing page</h3>
-          <p>Proyecto orientado a mostrar información clara, atractiva y optimizada para dispositivos móviles.</p>
-          <div class="project-links">
-            <a href="#">Demo</a>
-            <a href="#">GitHub</a>
+          <div class="project-cover">
+            Proyecto 2
+          </div>
+          <div class="project-body">
+            <h3>Landing page creativa</h3>
+            <p>Diseño visual pensado para destacar un producto, servicio o marca con una estructura moderna y atractiva.</p>
+            <div class="project-tags">
+              <span>UI</span>
+              <span>Diseño</span>
+              <span>Web</span>
+            </div>
+            <div class="project-links">
+              <a href="#">Demo</a>
+              <a href="#">GitHub</a>
+            </div>
           </div>
         </article>
 
         <article class="card project-card">
-          <div class="project-image">Proyecto 3</div>
-          <h3>Portafolio creativo</h3>
-          <p>Diseño adaptable para presentar trabajos, habilidades y datos de contacto de forma limpia y profesional.</p>
-          <div class="project-links">
-            <a href="#">Demo</a>
-            <a href="#">GitHub</a>
+          <div class="project-cover">
+            Proyecto 3
+          </div>
+          <div class="project-body">
+            <h3>Portafolio personal</h3>
+            <p>Un espacio para mostrar trabajos, habilidades y datos de contacto con una estética profesional y ordenada.</p>
+            <div class="project-tags">
+              <span>Portafolio</span>
+              <span>GitHub Pages</span>
+              <span>Frontend</span>
+            </div>
+            <div class="project-links">
+              <a href="#">Demo</a>
+              <a href="#">GitHub</a>
+            </div>
           </div>
         </article>
       </div>
     </section>
 
     <section class="container contact" id="contacto">
-      <div class="card contact-box">
+      <div class="panel contact-box">
         <h2 class="section-title">Contacto</h2>
-        <p class="section-text" style="margin: 0 auto 20px;">
-          ¿Te interesa trabajar conmigo o colaborar en un proyecto? Puedes escribirme por correo o encontrarme en mis redes profesionales.
+        <p class="section-text" style="margin: 0 auto 18px;">
+          Si te interesa colaborar conmigo, trabajar en un proyecto o conocer más sobre mi experiencia, aquí están mis canales principales.
         </p>
-        <div class="buttons" style="justify-content:center;">
+        <div class="buttons" style="justify-content: center;">
           <a class="btn btn-primary" href="mailto:tucorreo@ejemplo.com">Enviar correo</a>
           <a class="btn btn-secondary" href="https://github.com/tuusuario" target="_blank">Mi GitHub</a>
+        </div>
+        <div class="socials">
+          <a href="#">LinkedIn</a>
+          <a href="#">Instagram</a>
+          <a href="#">Behance</a>
         </div>
       </div>
     </section>
@@ -385,7 +525,7 @@
 
   <footer>
     <div class="container">
-      © 2026 Tu Nombre · Hecho con HTML y CSS para GitHub Pages.
+      © 2026 Tu Nombre · Hecho con HTML y CSS · Publicado con GitHub Pages.
     </div>
   </footer>
 </body>
